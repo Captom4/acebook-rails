@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
-  before_action :check_owner, only: [:edit, :update, :destroy]
+  before_action :owner?, only: %i[edit update destroy]
 
   # GET /posts
   # GET /posts.json
@@ -74,10 +74,9 @@ class PostsController < ApplicationController
     params.require(:post).permit(:content).merge(user_id: current_user.id)
   end
 
-  def check_owner
-    unless @post.user == current_user
-      flash[:alert] = 'You do not own this post'
+  def owner?
+    unless current_user == @post.user
+      redirect_back fallback_location: posts_path, alert: 'You do not own this post'
     end
-    redirect_to posts_path
   end
 end
