@@ -1,0 +1,15 @@
+
+<%= tag.div class: 'panel panel-default' do %>
+  <%= tag.div class: 'panel-heading' do %>
+    <h4><%= created_by(post) %></h4>
+  <% end %>
+  <%= tag.div class: 'panel-body' do %>
+    <%= post.content %>
+  <% end %>
+  <%= tag.div class: 'panel-footer' do %>
+    Posted at: <%= post_date(post) %>
+    <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-info' %>
+    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <%#= link_to 'Delete', class: 'btn btn-danger' %>
+  <% end %>
+<% end %>
