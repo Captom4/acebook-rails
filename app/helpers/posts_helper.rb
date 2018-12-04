@@ -10,4 +10,8 @@ module PostsHelper
   def created_by(post)
     post.user.email
   end
+
+  def owner?(user)
+    user == current_user
+  end
 end
